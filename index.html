@@ -2,29 +2,34 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Scacco Matterello</title>
 
-    <link rel="manifest" href="manifest.json">
+    <!-- iPhone optimization -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+                   maximum-scale=1.0, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title>Scacchi 2 Giocatori</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Scacco Matterello</h1>
+    <h1>Scacchi – 2 Giocatori</h1>
     <canvas id="board"></canvas>
 
     <script src="app.js"></script>
-    <!-- SERVICE WORKER DISATTIVATO -->
+
+    <!-- Service worker disattivato -->
     <script>
+    /*
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw2.js");
     }
+    */
     </script>
 
 </body>
-
 </html>
-
-
-
-
