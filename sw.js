@@ -1,4 +1,4 @@
-const CACHE_NAME = "chess-cache-v4";
+const CACHE_NAME = "chess-cache-v5";
 
 self.addEventListener("install", event => {
     event.waitUntil(
@@ -43,4 +43,5 @@ self.addEventListener("fetch", event => {
     );
 });
 
+// force update 2026-01-09
 
