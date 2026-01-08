@@ -1,4 +1,4 @@
-const CACHE_NAME = "chess-cache-v3";
+const CACHE_NAME = "chess-cache-v4";
 
 self.addEventListener("install", event => {
     event.waitUntil(
@@ -42,4 +42,5 @@ self.addEventListener("fetch", event => {
         })
     );
 });
+
 
