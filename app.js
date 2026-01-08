@@ -69,17 +69,90 @@ canvas.addEventListener("click", (e) => {
 
     drawBoard();
 });
-
 function movePiece(x1, y1, x2, y2) {
-    if (x1 === x2 && y1 === y2) return;
-
     let piece = board[y1][x1];
+    if (!piece) return;
+
+    // controllo colore turno
+    if (isWhite(piece) !== (turn === "w")) return;
+
+    // controllo mossa legale
+    if (!isLegalMove(piece, x1, y1, x2, y2)) return;
+
+    // impedisce di mangiare un pezzo dello stesso colore
+    if (board[y2][x2] && isWhite(board[y2][x2]) === isWhite(piece)) return;
+
+    // esegui mossa
     board[y1][x1] = "";
     board[y2][x2] = piece;
 
+    // cambio turno
     turn = turn === "w" ? "b" : "w";
 }
 
+function isLegalMove(piece, x1, y1, x2, y2) {
+    let dx = x2 - x1;
+    let dy = y2 - y1;
+
+    switch (piece.toLowerCase()) {
+
+        case "p": // pedone
+            let dir = isWhite(piece) ? -1 : 1;
+
+            // movimento semplice
+            if (dx === 0 && dy === dir && board[y2][x2] === "") return true;
+
+            // prima mossa: due passi
+            if (dx === 0 && dy === 2 * dir && board[y1 + dir][x1] === "" && board[y2][x2] === "") {
+                if ((isWhite(piece) && y1 === 6) || (!isWhite(piece) && y1 === 1)) return true;
+            }
+
+            // cattura
+            if (Math.abs(dx) === 1 && dy === dir && board[y2][x2] !== "" && isWhite(board[y2][x2]) !== isWhite(piece)) {
+                return true;
+            }
+
+            return false;
+
+        case "r": // torre
+            if (dx !== 0 && dy !== 0) return false;
+            return pathClear(x1, y1, x2, y2);
+
+        case "b": // alfiere
+            if (Math.abs(dx) !== Math.abs(dy)) return false;
+            return pathClear(x1, y1, x2, y2);
+
+        case "q": // regina
+            if (dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy)) {
+                return pathClear(x1, y1, x2, y2);
+            }
+            return false;
+
+        case "n": // cavallo
+            return (Math.abs(dx) === 1 && Math.abs(dy) === 2) ||
+                   (Math.abs(dx) === 2 && Math.abs(dy) === 1);
+
+        case "k": // re
+            return Math.abs(dx) <= 1 && Math.abs(dy) <= 1;
+    }
+
+    return false;
+}
+
+function pathClear(x1, y1, x2, y2) {
+    let dx = Math.sign(x2 - x1);
+    let dy = Math.sign(y2 - y1);
+
+    let x = x1 + dx;
+    let y = y1 + dy;
+
+    while (x !== x2 || y !== y2) {
+        if (board[y][x] !== "") return false;
+        x += dx;
+        y += dy;
+    }
+    return true;
+}
 function isWhite(p) {
     return p === p.toUpperCase();
 }
@@ -91,6 +164,7 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js");
 
 }
+
 
 
 
