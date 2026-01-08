@@ -6,7 +6,19 @@ self.addEventListener("install", event => {
                 "/index.html",
                 "/style.css",
                 "/app.js",
-                "/manifest.json"
+                "/manifest.json",
+                "/pieces/bR.png",
+                "/pieces/bN.png",
+                "/pieces/bB.png",
+                "/pieces/bQ.png",
+                "/pieces/bK.png",
+                "/pieces/bP.png",
+                "/pieces/wR.png",
+                "/pieces/wN.png",
+                "/pieces/wB.png",
+                "/pieces/wQ.png",
+                "/pieces/wK.png",
+                "/pieces/wP.png"
             ]);
         })
     );
@@ -20,23 +32,3 @@ self.addEventListener("fetch", event => {
     );
 
 });
-
-return cache.addAll([
-    "/",
-    "/index.html",
-    "/style.css",
-    "/app.js",
-    "/manifest.json",
-    "/pieces/bR.png",
-    "/pieces/bN.png",
-    "/pieces/bB.png",
-    "/pieces/bQ.png",
-    "/pieces/bK.png",
-    "/pieces/bP.png",
-    "/pieces/wR.png",
-    "/pieces/wN.png",
-    "/pieces/wB.png",
-    "/pieces/wQ.png",
-    "/pieces/wK.png",
-    "/pieces/wP.png"
-]);
