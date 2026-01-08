@@ -1,47 +1,17 @@
-const CACHE_NAME = "chess-cache-v5";
+// Service worker DISATTIVATO completamente
+// Versione v6 - 2026-01-09
 
-self.addEventListener("install", event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => {
-            return cache.addAll([
-                "index.html",
-                "style.css",
-                "app.js",
-                "manifest.json",
-                "pieces/bR.png",
-                "pieces/bN.png",
-                "pieces/bB.png",
-                "pieces/bQ.png",
-                "pieces/bK.png",
-                "pieces/bP.png",
-                "pieces/wR.png",
-                "pieces/wN.png",
-                "pieces/wB.png",
-                "pieces/wQ.png",
-                "pieces/wK.png",
-                "pieces/wP.png"
-            ]);
-        })
-    );
+// Questo file è volutamente vuoto per disattivare il vecchio service worker.
+// Safari e GitHub Pages ora sono costretti a NON usare più la cache vecchia.
+
+self.addEventListener("install", () => {
+    self.skipWaiting();
 });
 
 self.addEventListener("activate", event => {
     event.waitUntil(
         caches.keys().then(keys => {
-            return Promise.all(
-                keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-            );
+            return Promise.all(keys.map(k => caches.delete(k)));
         })
     );
 });
-
-self.addEventListener("fetch", event => {
-    event.respondWith(
-        caches.match(event.request).then(response => {
-            return response || fetch(event.request);
-        })
-    );
-});
-
-// force update 2026-01-09
-
