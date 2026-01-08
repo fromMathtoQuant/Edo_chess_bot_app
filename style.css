@@ -1,7 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
     background: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0;
 }
 
 canvas {
@@ -10,4 +15,5 @@ canvas {
     width: 95vw;
     max-width: 480px;
     height: auto;
+    touch-action: none; /* evita zoom e scroll involontari */
 }
