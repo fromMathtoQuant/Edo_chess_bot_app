@@ -1,6 +1,8 @@
+const CACHE_NAME = "chess-cache-v2";
+
 self.addEventListener("install", event => {
     event.waitUntil(
-        caches.open("chess-cache").then(cache => {
+        caches.open(CACHE_NAME).then(cache => {
             return cache.addAll([
                 "index.html",
                 "style.css",
@@ -23,12 +25,20 @@ self.addEventListener("install", event => {
     );
 });
 
+self.addEventListener("activate", event => {
+    event.waitUntil(
+        caches.keys().then(keys => {
+            return Promise.all(
+                keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+            );
+        })
+    );
+});
+
 self.addEventListener("fetch", event => {
     event.respondWith(
         caches.match(event.request).then(response => {
             return response || fetch(event.request);
         })
     );
-
 });
-
