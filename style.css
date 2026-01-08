@@ -1,19 +1,31 @@
-body {
-    font-family: Arial, sans-serif;
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* evita scroll su iPhone */
     background: #f0f0f0;
+    font-family: Arial, sans-serif;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    height: 100vh;
-    margin: 0;
+}
+
+h1 {
+    margin-top: 10px;
+    font-size: 22px;
 }
 
 canvas {
-    margin-top: 20px;
+    margin-top: 10px;
     border: 3px solid #333;
+
     width: 95vw;
     max-width: 480px;
     height: auto;
-    touch-action: none; /* evita zoom e scroll involontari */
+
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
