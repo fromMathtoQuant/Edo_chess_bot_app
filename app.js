@@ -2,17 +2,8 @@ const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
 
 const boardSize = 8;
-function resizeBoard() {
-    const minSide = Math.min(window.innerWidth - 20, 480);
-    canvas.width = minSide;
-    canvas.height = minSide;
-    size = canvas.width / boardSize;
-    drawBoard();
-}
-
-let size = 60;
-resizeBoard();
-window.addEventListener("resize", resizeBoard);
+canvas.width = 480;
+canvas.height = 480;
 
 
 let selected = null;
@@ -100,4 +91,5 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js");
 
 }
+
 
