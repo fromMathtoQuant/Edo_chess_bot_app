@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 const boardSize = 8;
 canvas.width = 480;
 canvas.height = 480;
-
+const size = canvas.width / boardSize; // 480 / 8 = 60
 
 let selected = null;
 let turn = "w";
@@ -91,5 +91,6 @@ if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js");
 
 }
+
 
 
