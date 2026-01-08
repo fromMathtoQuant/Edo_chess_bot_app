@@ -8,18 +8,18 @@ let selected = null;
 let turn = "w";
 
 const pieces = {
-    "r": "pieces/br.png",
-    "n": "pieces/bn.png",
-    "b": "pieces/bb.png",
-    "q": "pieces/bq.png",
-    "k": "pieces/bk.png",
-    "p": "pieces/bp.png",
-    "R": "pieces/wr.png",
-    "N": "pieces/wn.png",
-    "B": "pieces/wb.png",
-    "Q": "pieces/wq.png",
-    "K": "pieces/wk.png",
-    "P": "pieces/wp.png"
+    "r": "pieces/bR.png",
+    "n": "pieces/bN.png",
+    "b": "pieces/bB.png",
+    "q": "pieces/bQ.png",
+    "k": "pieces/bK.png",
+    "p": "pieces/bP.png",
+    "R": "pieces/wR.png",
+    "N": "pieces/wN.png",
+    "B": "pieces/wB.png",
+    "Q": "pieces/wQ.png",
+    "K": "pieces/wK.png",
+    "P": "pieces/wP.png"
 };
 
 let board = [
@@ -87,4 +87,5 @@ drawBoard();
 // Service Worker
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js");
+
 }
