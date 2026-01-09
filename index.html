@@ -3,22 +3,34 @@
 <head>
     <meta charset="UTF-8">
 
-    <!-- iPhone optimization -->
+    <!-- iPhone: evita zoom, mantiene proporzioni corrette -->
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0,
                    maximum-scale=1.0, user-scalable=no">
 
+    <!-- Attiva modalità app fullscreen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Nasconde completamente la status bar (ora, batteria, rete) -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Nome dell'app quando aggiunta alla Home -->
+    <meta name="apple-mobile-web-app-title" content="Scacco Matterello">
+
+    <!-- Colore di sfondo del launch screen -->
+    <meta name="theme-color" content="#000000">
+
+    <!-- Icona per la Home Screen (puoi cambiarla) -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
 
     <title>Scacco Matterello</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
     <h1>Scacco Matterello</h1>
-    
+
     <div id="turnIndicator" style="
         font-size: 20px;
         margin-top: 5px;
@@ -26,15 +38,14 @@
     ">
         Tocca al Bianco
     </div>
-    
-    <!-- WRAPPER CHE SOLLEVA IL CANVAS DAL BORDO INFERIORE -->
+
+    <!-- Wrapper che solleva la scacchiera dalla safe area -->
     <div id="boardWrapper" style="
         padding-bottom: calc(env(safe-area-inset-bottom) + 40px);
     ">
         <canvas id="board"></canvas>
     </div>
-    
-    <!-- PULSANTE PIÙ IN BASSO E NON SELEZIONABILE -->
+
     <button id="newGameBtn" style="
         margin-top: 30px;
         margin-bottom: 40px;
@@ -50,17 +61,5 @@
 
     <script src="app.js"></script>
 
-    <!-- Service worker disattivato -->
-    <script>
-    /*
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw2.js");
-    }
-    */
-    </script>
-
 </body>
 </html>
-
-
-
