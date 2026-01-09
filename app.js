@@ -470,6 +470,22 @@ canvas.addEventListener("mouseup", (e) => {
 
 let lastTap = 0;
 
+function getSquareFromTouch(touch, rect) {
+    const x = (touch.clientX - rect.left);
+    const y = (touch.clientY - rect.top);
+
+    // Tolleranza: espandi virtualmente la casella
+    const tolerance = size * 0.25;
+
+    const col = Math.floor((x + tolerance) / size);
+    const row = Math.floor((y + tolerance) / size);
+
+    return {
+        x: Math.min(7, Math.max(0, col)),
+        y: Math.min(7, Math.max(0, row))
+    };
+}
+
 canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
 
@@ -480,8 +496,7 @@ canvas.addEventListener("touchstart", (e) => {
     const rect = canvas.getBoundingClientRect();
     const touch = e.touches[0];
 
-    const x = Math.floor((touch.clientX - rect.left) / size);
-    const y = Math.floor((touch.clientY - rect.top) / size);
+    const { x, y } = getSquareFromTouch(touch, rect);
 
     if (!inBounds(x, y)) return;
 
@@ -525,8 +540,7 @@ canvas.addEventListener("touchend", (e) => {
     const rect = canvas.getBoundingClientRect();
     const touch = e.changedTouches[0];
 
-    const x2 = Math.round((touch.clientX - rect.left) / size);
-    const y2 = Math.round((touch.clientY - rect.top) / size);
+    const { x: x2, y: y2 } = getSquareFromTouch(touch, rect);
 
     tryMove(selected.x, selected.y, x2, y2);
 }, { passive: false });
