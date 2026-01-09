@@ -22,7 +22,13 @@ function fixCanvasResolution() {
 }
 
 const boardSize = 8;
-const size = canvas.width / boardSize;
+
+function updateSquareSize() {
+    const rect = canvas.getBoundingClientRect();
+    size = rect.width / boardSize;
+}
+
+let size = 0;
 
 // Stato iniziale della scacchiera
 let board = [
@@ -220,6 +226,7 @@ function inCheck(b, color, enPassant, castling) {
 
 function init() {
     fixCanvasResolution();
+    updateSquareSize();
     drawBoard();
 }
 
@@ -227,6 +234,7 @@ window.addEventListener("load", init);
 
 window.addEventListener("resize", () => {
     fixCanvasResolution();
+    updateSquareSize();
     drawBoard();
 });
 
