@@ -11,57 +11,132 @@
     <!-- Attiva modalità app fullscreen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- Nasconde completamente la status bar (ora, batteria, rete) -->
+    <!-- Nasconde completamente la status bar -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <!-- Nome dell'app quando aggiunta alla Home -->
+    <!-- Nome dell'app -->
     <meta name="apple-mobile-web-app-title" content="Scacco Matterello">
 
-    <!-- Colore di sfondo del launch screen -->
+    <!-- Colore di sfondo -->
     <meta name="theme-color" content="#000000">
 
-    <!-- Icona per la Home Screen (puoi cambiarla in futuro) -->
+    <!-- Icona -->
     <link rel="apple-touch-icon" sizes="180x180" href="cubic2.png">
+
     <title>Scacco Matterello</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* MENU INIZIALE */
+        #startMenu {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #111;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 9999;
+            font-family: sans-serif;
+        }
+
+        #startMenu h1 {
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        .menuBtn {
+            width: 260px;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 12px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+
+        .menuBtn:active {
+            background: #555;
+        }
+
+        /* Nascondi scacchiera finché non si sceglie una modalità */
+        #gameUI {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Scacco Matterello</h1>
+    <!-- MENU INIZIALE -->
+    <div id="startMenu">
+        <h1>Scacco Matterello</h1>
 
-    <div id="turnIndicator" style="
-        font-size: 20px;
-        margin-top: 5px;
-        font-weight: bold;
-    ">
-        Tocca al Bianco
+        <button class="menuBtn" data-mode="classic">2 Giocatori Classic</button>
+        <button class="menuBtn" data-mode="bot">Contro Bot</button>
+        <button class="menuBtn" data-mode="judge">2 Giocatori con Giudice</button>
+        <button class="menuBtn" data-mode="botjudge">Contro Bot con Giudice</button>
     </div>
 
-    <!-- Wrapper che solleva la scacchiera dalla safe area -->
-    <div id="boardWrapper" style="
-        padding-bottom: calc(env(safe-area-inset-bottom) + 40px);
-    ">
-        <canvas id="board"></canvas>
-    </div>
+    <!-- INTERFACCIA DI GIOCO -->
+    <div id="gameUI">
 
-    <button id="newGameBtn" style="
-        margin-top: 30px;
-        margin-bottom: 40px;
-        padding: 10px 20px;
-        font-size: 18px;
-        -webkit-user-select: none;
-        user-select: none;
-        -webkit-touch-callout: none;
-        -webkit-tap-highlight-color: transparent;
-    ">
-        Nuova Partita
-    </button>
+        <h1>Scacco Matterello</h1>
+
+        <div id="turnIndicator" style="
+            font-size: 20px;
+            margin-top: 5px;
+            font-weight: bold;
+        ">
+            Tocca al Bianco
+        </div>
+
+        <div id="boardWrapper" style="
+            padding-bottom: calc(env(safe-area-inset-bottom) + 40px);
+        ">
+            <canvas id="board"></canvas>
+        </div>
+
+        <button id="newGameBtn" style="
+            margin-top: 30px;
+            margin-bottom: 40px;
+            padding: 10px 20px;
+            font-size: 18px;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        ">
+            Nuova Partita
+        </button>
+
+    </div>
 
     <script src="app.js"></script>
 
+    <script>
+        // Gestione menu iniziale
+        let gameMode = null;
+
+        document.querySelectorAll(".menuBtn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                gameMode = btn.dataset.mode;
+
+                // Nascondi menu
+                document.getElementById("startMenu").style.display = "none";
+
+                // Mostra UI di gioco
+                document.getElementById("gameUI").style.display = "block";
+
+                // Avvia modalità
+                if (typeof startGameMode === "function") {
+                    startGameMode(gameMode);
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
-
-
-
