@@ -613,8 +613,4 @@ document.getElementById("newGameBtn").addEventListener("click", () => {
 
     drawBoard();
 });
-    document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
-
-    drawBoard();
-});
 
