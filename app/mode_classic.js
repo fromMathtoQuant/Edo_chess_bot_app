@@ -1,5 +1,13 @@
-// mode_classic.js
-function startGameMode_classic() {
+import { resetBoard } from "../core.js";
+import { fixCanvasResolution, updateSquareSize, drawBoard } from "../ui.js";
+import { enableInput } from "../input.js";
+
+export function startMode() {
     resetBoard();
-    drawBoard();
+    fixCanvasResolution();
+    updateSquareSize();
+    enableInput();
+    drawBoard(null, [], false, null, 0, 0);
+
+    document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
 }
