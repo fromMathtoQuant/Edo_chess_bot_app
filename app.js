@@ -351,6 +351,20 @@ function applyMove(x1, y1, x2, y2) {
     turn === "w" ? "Tocca al Bianco" : "Tocca al Nero";
 }
 
+function hasAnyLegalMove(color) {
+    for (let y1 = 0; y1 < 8; y1++) {
+        for (let x1 = 0; x1 < 8; x1++) {
+            const piece = board[y1][x1];
+            if (!piece) continue;
+            if (isWhite(piece) !== (color === "w")) continue;
+
+            const moves = getLegalMoves(x1, y1);
+            if (moves.length > 0) return true;
+        }
+    }
+    return false;
+}
+
 // ===============================
 // PARTE 3/3 — Disegno + Input iPhone ottimizzato
 // ===============================
@@ -557,6 +571,16 @@ function tryMove(x1, y1, x2, y2) {
 
     if (inBounds(x2, y2) && isLegalMove(board[y1][x1], x1, y1, x2, y2)) {
         applyMove(x1, y1, x2, y2);
+
+        const enemy = turn; // dopo il cambio turno
+        
+        if (inCheck(board, enemy, enPassantTarget, castlingRights)) {
+            if (!hasAnyLegalMove(enemy)) {
+                setTimeout(() => {
+                    alert("SCACCO MATTERELLO!\nFine partita.\nVittoria " + (enemy === "w" ? "Nero" : "Bianco"));
+                }, 100);
+            }
+        }
     }
 
     selected = null;
@@ -566,4 +590,31 @@ function tryMove(x1, y1, x2, y2) {
 
 // Disegna inizialmente
 drawBoard();
+
+document.getElementById("newGameBtn").addEventListener("click", () => {
+    board = [
+        ["r","n","b","q","k","b","n","r"],
+        ["p","p","p","p","p","p","p","p"],
+        ["","","","","","","",""],
+        ["","","","","","","",""],
+        ["","","","","","","",""],
+        ["","","","","","","",""],
+        ["P","P","P","P","P","P","P","P"],
+        ["R","N","B","Q","K","B","N","R"]
+    ];
+
+    turn = "w";
+    enPassantTarget = null;
+    castlingRights = { wK:true, wQ:true, bK:true, bQ:true };
+    selected = null;
+    legalMoves = [];
+
+    document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
+
+    drawBoard();
+});
+    document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
+
+    drawBoard();
+});
 
