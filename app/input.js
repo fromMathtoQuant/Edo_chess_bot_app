@@ -2,7 +2,7 @@
 // INPUT — Mouse + Touch
 // ===============================
 
-import { board, turn, isWhite, inBounds, getLegalMoves, applyMove, hasAnyLegalMove } from "./core.js";
+import { board, turn, isWhite, inBounds, getLegalMoves, applyMove, hasAnyLegalMove, inCheck } from "./core.js";
 import { canvas, size, drawBoard } from "./ui.js";
 
 export let selected = null;
@@ -126,7 +126,10 @@ export function tryMove(x1, y1, x2, y2) {
     dragging = false;
     dragPiece = null;
 
-    if (inBounds(x2, y2) && getLegalMoves(x1, y1).some(m => m.x === x2 && m.y === y2)) {
+    const moves = getLegalMoves(x1, y1);
+    const isLegal = moves.some(m => m.x === x2 && m.y === y2);
+
+    if (isLegal) {
         applyMove(x1, y1, x2, y2);
 
         const enemy = turn;
@@ -138,9 +141,13 @@ export function tryMove(x1, y1, x2, y2) {
                 document.getElementById("startMenu").style.display = "flex";
             }, 200);
         }
+
+        // 🔥 IMPORTANTE: notifica bot o giudice
+        if (window.onPlayerMove) window.onPlayerMove();
     }
 
     selected = null;
     legalMoves = [];
+
     drawBoard(selected, legalMoves, dragging, dragPiece, dragX, dragY);
 }
