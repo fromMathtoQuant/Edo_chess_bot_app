@@ -8,23 +8,20 @@ const ctx = canvas.getContext("2d");
 function fixCanvasResolution() {
     const ratio = window.devicePixelRatio || 1;
 
+    const rect = canvas.getBoundingClientRect();
+
     // reset trasformazioni
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    // dimensioni CSS
-    const rect = canvas.getBoundingClientRect();
-
-    // dimensioni reali
+    // imposta dimensioni interne coerenti con quelle CSS
     canvas.width = rect.width * ratio;
     canvas.height = rect.height * ratio;
 
-    // scala corretta
+    // scala il contesto
     ctx.scale(ratio, ratio);
 }
 
 const boardSize = 8;
-canvas.width = 480;
-canvas.height = 480;
 fixCanvasResolution();
 const size = canvas.width / boardSize;
 
@@ -221,6 +218,14 @@ function inCheck(b, color, enPassant, castling) {
     if (!k) return false;
     return squareAttacked(b, k.x, k.y, !white, enPassant, castling);
 }
+
+function init() {
+    fixCanvasResolution();
+    drawBoard();
+}
+
+window.addEventListener("load", init);
+
 
 // ===============================
 // PARTE 2/3 — Logica completa delle mosse
