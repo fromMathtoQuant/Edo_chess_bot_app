@@ -505,14 +505,11 @@ function getSquareFromTouch(touch, rect) {
 canvas.addEventListener("touchstart", (e) => {
     e.preventDefault();
 
-    const now = Date.now();
-    if (now - lastTap < 80) return; // evita doppi tap involontari
-    lastTap = now;
-
     const rect = canvas.getBoundingClientRect();
     const touch = e.touches[0];
 
-    const { x, y } = getSquareFromTouch(touch, rect);
+    const x = Math.floor((touch.clientX - rect.left) / size);
+    const y = Math.floor((touch.clientY - rect.top) / size);
 
     if (!inBounds(x, y)) return;
 
@@ -542,9 +539,12 @@ canvas.addEventListener("touchmove", (e) => {
     const rect = canvas.getBoundingClientRect();
     const touch = e.touches[0];
 
-    // smoothing movimento
-    dragX = dragX * 0.6 + (touch.clientX - rect.left) * 0.4;
-    dragY = dragY * 0.6 + (touch.clientY - rect.top) * 0.4;
+    // smoothing movimento opzionale
+    // dragX = dragX * 0.6 + (touch.clientX - rect.left) * 0.4;
+    // dragY = dragY * 0.6 + (touch.clientY - rect.top) * 0.4;
+
+    dragX = touch.clientX - rect.left;
+    dragY = touch.clientY - rect.top;
 
     drawBoard();
 }, { passive: false });
@@ -556,7 +556,9 @@ canvas.addEventListener("touchend", (e) => {
     const rect = canvas.getBoundingClientRect();
     const touch = e.changedTouches[0];
 
-    const { x: x2, y: y2 } = getSquareFromTouch(touch, rect);
+    // const { x: x2, y: y2 } = getSquareFromTouch(touch, rect);
+    const x2 = Math.floor(dragX / size);
+    const y2 = Math.floor(dragY / size);
 
     tryMove(selected.x, selected.y, x2, y2);
 }, { passive: false });
