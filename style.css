@@ -12,6 +12,14 @@ html, body {
     align-items: center;
 }
 
+body.start-screen {
+    background: cyan !important;
+}
+
+#startMenu {
+    background: cyan !important;
+}
+
 h1 {
     margin-top: 10px;
     font-family: 'UnifrakturCook', cursive;
@@ -62,6 +70,7 @@ button, #newGameBtn {
     font-weight: bold;
     font-size: 20px;
 }
+
 
 
 
