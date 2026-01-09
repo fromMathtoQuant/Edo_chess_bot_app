@@ -4,10 +4,14 @@
 
 import { board, findKing, inCheck } from "./core.js";
 
-export let canvas = document.getElementById("board");
-export let ctx = canvas.getContext("2d");
-
+export let canvas = null;
+export let ctx = null;
 export let size = 0;
+
+export function initUI() {
+    canvas = document.getElementById("board");
+    ctx = canvas.getContext("2d");
+}
 
 export function fixCanvasResolution() {
     const ratio = window.devicePixelRatio || 1;
