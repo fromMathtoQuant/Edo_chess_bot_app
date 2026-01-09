@@ -347,6 +347,8 @@ function applyMove(x1, y1, x2, y2) {
     castlingRights = result.castling;
 
     turn = turn === "w" ? "b" : "w";
+    document.getElementById("turnIndicator").textContent =
+    turn === "w" ? "Tocca al Bianco" : "Tocca al Nero";
 }
 
 // ===============================
