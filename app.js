@@ -5,21 +5,27 @@
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
 
-fixCanvasResolution();
-
 function fixCanvasResolution() {
     const ratio = window.devicePixelRatio || 1;
+
+    // reset trasformazioni
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    // dimensioni CSS
     const rect = canvas.getBoundingClientRect();
 
+    // dimensioni reali
     canvas.width = rect.width * ratio;
     canvas.height = rect.height * ratio;
 
+    // scala corretta
     ctx.scale(ratio, ratio);
 }
 
 const boardSize = 8;
 canvas.width = 480;
 canvas.height = 480;
+fixCanvasResolution();
 const size = canvas.width / boardSize;
 
 // Stato iniziale della scacchiera
