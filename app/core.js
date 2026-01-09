@@ -1,13 +1,13 @@
 // ===============================
-// PARTE 1/3 — Setup e funzioni base
+// CORE — Setup e funzioni base
 // ===============================
+
 
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
 
 function fixCanvasResolution() {
     const ratio = window.devicePixelRatio || 1;
-
     const rect = canvas.getBoundingClientRect();
 
     // reset trasformazioni
@@ -31,16 +31,7 @@ function updateSquareSize() {
 let size = 0;
 
 // Stato iniziale della scacchiera
-let board = [
-    ["r","n","b","q","k","b","n","r"],
-    ["p","p","p","p","p","p","p","p"],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["P","P","P","P","P","P","P","P"],
-    ["R","N","B","Q","K","B","N","R"]
-];
+let board = [];
 
 let turn = "w"; 
 let selected = null;
@@ -74,7 +65,8 @@ const pieces = {
     "B": "pieces/wB.png",
     "Q": "pieces/wQ.png",
     "K": "pieces/wK.png",
-    "P": "pieces/wP.png"
+    "P": "pieces/wP.png",
+    "S": "pieces/sentinel.png"
 };
 
 // Cache immagini
@@ -102,30 +94,20 @@ function findKing(b, white) {
     return null;
 }
 
-// Controlla se una casa è attaccata
-function squareAttacked(b, x, y, byWhite, enPassant, castling) {
-    for (let yy = 0; yy < 8; yy++) {
-        for (let xx = 0; xx < 8; xx++) {
-            const p = b[yy][xx];
-            if (!p) continue;
-            if (isWhite(p) !== byWhite) continue;
-
-            if (basicLegalMove(b, p, xx, yy, x, y, byWhite ? "w" : "b", enPassant, castling, true)) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-// Movimento base (senza controllo scacco)
+// Movimento base
 function basicLegalMove(b, piece, x1, y1, x2, y2, turnColor, enPassant, castling, ignoreKingSpecial) {
     if (!inBounds(x2, y2)) return false;
     if (x1 === x2 && y1 === y2) return false;
 
     const target = b[y2][x2];
     const white = isWhite(piece);
+    
+    // Sentinella non può essere catturata
+    if (target && target.toLowerCase() === "s") return false;
+
+    // Non puoi catturare pezzi tuoi
     if (target && isWhite(target) === white) return false;
+
 
     const dx = x2 - x1;
     const dy = y2 - y1;
@@ -133,6 +115,14 @@ function basicLegalMove(b, piece, x1, y1, x2, y2, turnColor, enPassant, castling
     const absDy = Math.abs(dy);
 
     switch (piece.toLowerCase()) {
+
+        case "s": // SENTINELLA
+            if (absDx <= 1 && absDy <= 1) {
+                if (target) return false; // non cattura
+                return true;
+            }
+            return false;
+
         case "p": {
             const dir = white ? -1 : 1;
             const startRank = white ? 6 : 1;
@@ -209,11 +199,33 @@ function pathClear(b, x1, y1, x2, y2) {
     let y = y1 + dy;
 
     while (x !== x2 || y !== y2) {
-        if (b[y][x]) return false;
+        if (b[y][x]) {
+            if (b[y][x].toLowerCase() === "s") return false; // sentinella blocca
+            return false;
+        }
         x += dx;
         y += dy;
     }
     return true;
+}
+
+// Controlla se una casa è attaccata
+function squareAttacked(b, x, y, byWhite, enPassant, castling) {
+    for (let yy = 0; yy < 8; yy++) {
+        for (let xx = 0; xx < 8; xx++) {
+            const p = b[yy][xx];
+            if (!p) continue;
+
+            if (p.toLowerCase() === "s") continue; // sentinella non attacca
+
+            if (isWhite(p) !== byWhite) continue;
+
+            if (basicLegalMove(b, p, xx, yy, x, y, byWhite ? "w" : "b", enPassant, castling, true)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 // Controlla se il re è in scacco
@@ -224,25 +236,6 @@ function inCheck(b, color, enPassant, castling) {
     return squareAttacked(b, k.x, k.y, !white, enPassant, castling);
 }
 
-function init() {
-    fixCanvasResolution();
-    updateSquareSize();
-    drawBoard();
-}
-
-window.addEventListener("load", init);
-
-window.addEventListener("resize", () => {
-    fixCanvasResolution();
-    updateSquareSize();
-    drawBoard();
-});
-
-
-// ===============================
-// PARTE 2/3 — Logica completa delle mosse
-// ===============================
-
 // Applica una mossa a una board clonata (per simulazioni)
 function makeMove(b, x1, y1, x2, y2, turnColor, enPassant, castling) {
     const newBoard = cloneBoard(b);
@@ -251,6 +244,11 @@ function makeMove(b, x1, y1, x2, y2, turnColor, enPassant, castling) {
 
     let newEnPassant = null;
     let newCastling = { ...castling };
+    
+    // Sentinella non può essere catturata
+    if (b[y2][x2] && b[y2][x2].toLowerCase() === "s") {
+        return { board: b, enPassant, castling };
+    }
 
     // EN PASSANT
     if (piece.toLowerCase() === "p" && enPassant && x2 === enPassant.x && y2 === enPassant.y) {
@@ -400,10 +398,6 @@ function hasAnyLegalMove(color) {
     return false;
 }
 
-// ===============================
-// PARTE 3/3 — Disegno + Input iPhone ottimizzato
-// ===============================
-
 // Disegna la scacchiera
 function drawBoard() {
     const whiteInCheck = inCheck(board, "w", enPassantTarget, castlingRights);
@@ -435,7 +429,7 @@ function drawBoard() {
         ctx.fillStyle = "rgba(255,0,0,0.5)";
         ctx.fillRect(k.x * size, k.y * size, size, size);
     }
-    if (blackInCheck) {
+       if (blackInCheck) {
         const k = findKing(board, false);
         ctx.fillStyle = "rgba(255,0,0,0.5)";
         ctx.fillRect(k.x * size, k.y * size, size, size);
@@ -451,7 +445,7 @@ function drawBoard() {
                 selected.x === x && selected.y === y) continue;
 
             const img = imageCache[piece];
-            if (img.complete) {
+            if (img && img.complete) {
                 ctx.drawImage(img, x * size, y * size, size, size);
             }
         }
@@ -460,7 +454,7 @@ function drawBoard() {
     // Disegna pezzo trascinato
     if (dragging && dragPiece) {
         const img = imageCache[dragPiece];
-        if (img.complete) {
+        if (img && img.complete) {
             ctx.drawImage(img, dragX - size / 2, dragY - size / 2, size, size);
         }
     }
@@ -525,7 +519,6 @@ function getSquareFromTouch(touch, rect) {
     const x = (touch.clientX - rect.left);
     const y = (touch.clientY - rect.top);
 
-    // Tolleranza: espandi virtualmente la casella
     const tolerance = size * 0.25;
 
     const col = Math.floor((x + tolerance) / size);
@@ -574,7 +567,7 @@ canvas.addEventListener("touchmove", (e) => {
     const rect = canvas.getBoundingClientRect();
     const touch = e.touches[0];
 
-    // smoothing movimento opzionale
+    // smoothing opzionale:
     // dragX = dragX * 0.6 + (touch.clientX - rect.left) * 0.4;
     // dragY = dragY * 0.6 + (touch.clientY - rect.top) * 0.4;
 
@@ -591,7 +584,6 @@ canvas.addEventListener("touchend", (e) => {
     const rect = canvas.getBoundingClientRect();
     const touch = e.changedTouches[0];
 
-    // const { x: x2, y: y2 } = getSquareFromTouch(touch, rect);
     const x2 = Math.floor(dragX / size);
     const y2 = Math.floor(dragY / size);
 
@@ -610,12 +602,23 @@ function tryMove(x1, y1, x2, y2) {
         applyMove(x1, y1, x2, y2);
 
         const enemy = turn; // dopo il cambio turno
-        
+
         if (inCheck(board, enemy, enPassantTarget, castlingRights)) {
             if (!hasAnyLegalMove(enemy)) {
                 setTimeout(() => {
                     alert("SCACCO MATTERELLO!\nFine partita.\nVittoria " + (enemy === "w" ? "Nero" : "Bianco"));
-                }, 100);
+            
+                    // Torna automaticamente al menu
+                    document.getElementById("gameUI").style.display = "none";
+                    document.getElementById("startMenu").style.display = "flex";
+            
+                    // Reset stato interno
+                    selected = null;
+                    legalMoves = [];
+                    dragging = false;
+                    dragPiece = null;
+            
+                }, 200);
             }
         }
     }
@@ -625,28 +628,19 @@ function tryMove(x1, y1, x2, y2) {
     drawBoard();
 }
 
-// Disegna inizialmente
-drawBoard();
+// ===============================
+// Nuova partita (rispetta la modalità scelta)
+// ===============================
 
 document.getElementById("newGameBtn").addEventListener("click", () => {
-    board = [
-        ["r","n","b","q","k","b","n","r"],
-        ["p","p","p","p","p","p","p","p"],
-        ["","","","","","","",""],
-        ["","","","","","","",""],
-        ["","","","","","","",""],
-        ["","","","","","","",""],
-        ["P","P","P","P","P","P","P","P"],
-        ["R","N","B","Q","K","B","N","R"]
-    ];
-
-    turn = "w";
-    enPassantTarget = null;
-    castlingRights = { wK:true, wQ:true, bK:true, bQ:true };
-    selected = null;
-    legalMoves = [];
-
-    document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
-
-    drawBoard();
+    // gameMode è definito nello script inline in index.html
+    if (typeof gameMode !== "undefined") {
+        if (gameMode === "classic" && typeof startGameMode_classic === "function") {
+            startGameMode_classic();
+        } else if (gameMode === "judge" && typeof startGameMode_judge === "function") {
+            startGameMode_judge();
+        }
+        // in futuro: bot / botjudge
+    }
+});
 });
