@@ -1,6 +1,13 @@
-// mode_judge.js
-function startGameMode_judge() {
+import { resetBoard } from "../core.js";
+import { fixCanvasResolution, updateSquareSize, drawBoard } from "../ui.js";
+import { enableInput } from "../input.js";
+
+export function startMode() {
     resetBoard();
-    board[4][3] = "S"; // sentinella
-    drawBoard();
+    fixCanvasResolution();
+    updateSquareSize();
+    enableInput();
+    drawBoard(null, [], false, null, 0, 0);
+
+    alert("Modalità Bot + Giudice attiva");
 }
