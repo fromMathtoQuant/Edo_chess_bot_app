@@ -5,6 +5,16 @@
 const canvas = document.getElementById("board");
 const ctx = canvas.getContext("2d");
 
+function fixCanvasResolution() {
+    const ratio = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+
+    ctx.scale(ratio, ratio);
+}
+
 const boardSize = 8;
 canvas.width = 480;
 canvas.height = 480;
@@ -591,6 +601,7 @@ function tryMove(x1, y1, x2, y2) {
 }
 
 // Disegna inizialmente
+fixCanvasResolution();
 drawBoard();
 
 document.getElementById("newGameBtn").addEventListener("click", () => {
