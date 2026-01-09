@@ -18,11 +18,10 @@ function fixCanvasResolution() {
     canvas.height = rect.height * ratio;
 
     // scala il contesto
-    ctx.scale(ratio, ratio);
+    ctx.scale(ratio, ratio);    
 }
 
 const boardSize = 8;
-fixCanvasResolution();
 const size = canvas.width / boardSize;
 
 // Stato iniziale della scacchiera
@@ -225,6 +224,11 @@ function init() {
 }
 
 window.addEventListener("load", init);
+
+window.addEventListener("resize", () => {
+    fixCanvasResolution();
+    drawBoard();
+});
 
 
 // ===============================
