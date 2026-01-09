@@ -4,7 +4,7 @@ html, body {
     height: 100%;
     overflow: hidden; /* evita scroll su iPhone */
     overscroll-behavior: none; /* evita swipe-back e bounce */
-    background: #f0f0f0;
+    background: #0b6623; /* verde brillante */ 
     font-family: Arial, sans-serif;
 
     display: flex;
@@ -14,7 +14,8 @@ html, body {
 
 h1 {
     margin-top: 10px;
-    font-size: 22px;
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 28px;
 }
 
 /* Wrapper che solleva la scacchiera dal bordo inferiore */
@@ -51,6 +52,7 @@ button, #newGameBtn {
     -webkit-touch-callout: none !important;
     -webkit-tap-highlight-color: transparent;
 }
+
 
 
 
