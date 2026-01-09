@@ -3,6 +3,8 @@ html, body {
     padding: 0;
     height: 100%;
     overflow: hidden; /* evita scroll su iPhone */
+    overscroll-behavior: none; /* evita swipe-back e bounce */
+    touch-action: none;
     background: #f0f0f0;
     font-family: Arial, sans-serif;
 
@@ -29,3 +31,11 @@ canvas {
     -webkit-user-select: none;
     user-select: none;
 }
+
+button, #newGameBtn {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
