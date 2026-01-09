@@ -100,6 +100,10 @@ export function drawBoard(selected, legalMoves, dragging, dragPiece, dragX, drag
                 selected.x === x && selected.y === y) continue;
 
             const img = imageCache[piece];
+
+            img.onload = () => console.log("Caricato:", key);
+            img.onerror = () => console.log("ERRORE PNG:", key);
+            
             if (img.complete) {
                 ctx.drawImage(img, x * size, y * size, size, size);
             }
