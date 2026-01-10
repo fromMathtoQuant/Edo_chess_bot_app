@@ -86,8 +86,8 @@ export function preloadImages(callback) {
 
 
 export function drawBoard(selected, legalMoves, dragging, dragPiece, dragX, dragY) {
-    const whiteInCheck = inCheck(board, "w");
-    const blackInCheck = inCheck(board, "b");
+    const whiteInCheck = inCheck(board, "w", enPassantTarget, castlingRights);
+    const blackInCheck = inCheck(board, "b", enPassantTarget, castlingRights);
 
     // Sfondo
     for (let y = 0; y < 8; y++) {
