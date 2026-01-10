@@ -58,6 +58,33 @@ for (let key in pieces) {
     imageCache[key] = img;
 }
 
+export function preloadImages(callback) {
+    let loaded = 0;
+    const total = Object.keys(imageCache).length;
+
+    for (let key in imageCache) {
+        const img = imageCache[key];
+
+        if (img.complete) {
+            loaded++;
+            if (loaded === total) callback();
+            continue;
+        }
+
+        img.onload = () => {
+            loaded++;
+            if (loaded === total) callback();
+        };
+
+        img.onerror = () => {
+            console.warn("Errore nel caricare l'immagine:", pieces[key]);
+            loaded++;
+            if (loaded === total) callback();
+        };
+    }
+}
+
+
 export function drawBoard(selected, legalMoves, dragging, dragPiece, dragX, dragY) {
     const whiteInCheck = inCheck(board, "w");
     const blackInCheck = inCheck(board, "b");
