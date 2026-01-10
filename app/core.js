@@ -51,7 +51,7 @@ export function basicLegalMove(b, piece, x1, y1, x2, y2, turnColor, enPassant, c
             }
             return false;
 
-        case "p": {
+        case "p": {s
             const dir = white ? -1 : 1;
             const startRank = white ? 6 : 1;
 
@@ -176,15 +176,18 @@ export function makeMove(b, x1, y1, x2, y2, turnColor, enPassant, castling) {
     if (b[y2][x2] && b[y2][x2].toLowerCase() === "s") {
         return { board: b, enPassant, castling };
     }
-
+    
+    // EN PASSANT
     if (piece.toLowerCase() === "p" && enPassant && x2 === enPassant.x && y2 === enPassant.y) {
         const dir = white ? 1 : -1;
         newBoard[y2 + dir][x2] = "";
     }
-
+    
+    // Sposta pezzo
     newBoard[y1][x1] = "";
     newBoard[y2][x2] = piece;
 
+    // PROMOZIONE AUTOMATICA A DONNA
     if (piece.toLowerCase() === "p") {
         if (white && y2 === 0) newBoard[y2][x2] = "Q";
         if (!white && y2 === 7) newBoard[y2][x2] = "q";
@@ -197,6 +200,58 @@ export function makeMove(b, x1, y1, x2, y2, turnColor, enPassant, castling) {
         }
     }
 
+    
+    // ARROCCO
+    if (piece === "K") {
+        newCastling.wK = false;
+        newCastling.wQ = false;
+
+        if (x1 === 4 && y1 === 7 && x2 === 6) {
+            newBoard[7][5] = newBoard[7][7];
+            newBoard[7][7] = "";
+        }
+        if (x1 === 4 && y1 === 7 && x2 === 2) {
+            newBoard[7][3] = newBoard[7][0];
+            newBoard[7][0] = "";
+        }
+    }
+
+    if (piece === "k") {
+        newCastling.bK = false;
+        newCastling.bQ = false;
+
+        if (x1 === 4 && y1 === 0 && x2 === 6) {
+            newBoard[0][5] = newBoard[0][7];
+            newBoard[0][7] = "";
+        }
+        if (x1 === 4 && y1 === 0 && x2 === 2) {
+            newBoard[0][3] = newBoard[0][0];
+            newBoard[0][0] = "";
+        }
+    }
+
+    // Torri che si muovono
+    if (piece === "R") {
+        if (x1 === 0 && y1 === 7) newCastling.wQ = false;
+        if (x1 === 7 && y1 === 7) newCastling.wK = false;
+    }
+    if (piece === "r") {
+        if (x1 === 0 && y1 === 0) newCastling.bQ = false;
+        if (x1 === 7 && y1 === 0) newCastling.bK = false;
+    }
+
+    // Torri catturate
+    const captured = b[y2][x2];
+    if (captured === "R") {
+        if (x2 === 0 && y2 === 7) newCastling.wQ = false;
+        if (x2 === 7 && y2 === 7) newCastling.wK = false;
+    }
+    if (captured === "r") {
+        if (x2 === 0 && y2 === 0) newCastling.bQ = false;
+        if (x2 === 7 && y2 === 0) newCastling.bK = false;
+    }
+
+    
     return { board: newBoard, enPassant: newEnPassant, castling: newCastling };
 }
 
@@ -212,6 +267,8 @@ export function applyMove(x1, y1, x2, y2) {
     castlingRights = result.castling;
 
     turn = turn === "w" ? "b" : "w";
+    document.getElementById("turnIndicator").textContent =
+    turn === "w" ? "Tocca al Bianco" : "Tocca al Nero";
 }
 
 // Mosse legali
