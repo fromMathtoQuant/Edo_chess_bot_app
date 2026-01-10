@@ -6,7 +6,7 @@ import { board, findKing, inCheck } from "./core.js";
 
 export let canvas = null;
 export let ctx = null;
-export let size = 0;
+
 
 export function initUI() {
     canvas = document.getElementById("board");
@@ -30,6 +30,8 @@ export function updateSquareSize() {
     size = rect.width / 8;
 }
 
+export let size = 0;
+
 // Cache immagini
 const pieces = {
     "r": "pieces/bR.png",
@@ -51,6 +53,8 @@ const imageCache = {};
 for (let key in pieces) {
     const img = new Image();
     img.src = pieces[key];
+    img.decoding = "async";
+    img.loading = "eager";
     imageCache[key] = img;
 }
 
@@ -90,7 +94,7 @@ export function drawBoard(selected, legalMoves, dragging, dragPiece, dragX, drag
         ctx.fillRect(k.x * size, k.y * size, size, size);
     }
 
-    // Disegna pezzi
+    // Disegna pezzi (tranne quello trascinato)
     for (let y = 0; y < 8; y++) {
         for (let x = 0; x < 8; x++) {
             const piece = board[y][x];
