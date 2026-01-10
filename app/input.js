@@ -151,3 +151,8 @@ export function tryMove(x1, y1, x2, y2) {
 
     drawBoard(selected, legalMoves, dragging, dragPiece, dragX, dragY);
 }
+
+
+document.getElementById("turnIndicator").textContent =
+turn === "w" ? "Tocca al Bianco" : "Tocca al Nero";
+
