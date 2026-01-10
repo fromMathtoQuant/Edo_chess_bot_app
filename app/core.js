@@ -3,7 +3,17 @@
 // ===============================
 
 // Stato scacchiera
-export let board = [];
+export let board = [
+    ["r","n","b","q","k","b","n","r"],
+    ["p","p","p","p","p","p","p","p"],
+    ["","","","","","","",""],
+    ["","","","","","","",""],
+    ["","","","","","","",""],
+    ["","","","","","","",""],
+    ["P","P","P","P","P","P","P","P"],
+    ["R","N","B","Q","K","B","N","R"]
+];
+
 export let turn = "w";
 export let castlingRights = { wK:true, wQ:true, bK:true, bQ:true };
 export let enPassantTarget = null;
@@ -51,7 +61,7 @@ export function basicLegalMove(b, piece, x1, y1, x2, y2, turnColor, enPassant, c
             }
             return false;
 
-        case "p": {s
+        case "p": {
             const dir = white ? -1 : 1;
             const startRank = white ? 6 : 1;
 
@@ -267,8 +277,6 @@ export function applyMove(x1, y1, x2, y2) {
     castlingRights = result.castling;
 
     turn = turn === "w" ? "b" : "w";
-    document.getElementById("turnIndicator").textContent =
-    turn === "w" ? "Tocca al Bianco" : "Tocca al Nero";
 }
 
 // Mosse legali
