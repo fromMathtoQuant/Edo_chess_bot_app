@@ -131,6 +131,10 @@ export function tryMove(x1, y1, x2, y2) {
 
     if (isLegal) {
         applyMove(x1, y1, x2, y2);
+        
+        // Aggiorna UI del turno
+        document.getElementById("turnIndicator").textContent =
+            turn === "w" ? "Tocca al Bianco" : "Tocca al Nero";
 
         const enemy = turn;
 
