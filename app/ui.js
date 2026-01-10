@@ -2,7 +2,7 @@
 // UI — Disegno canvas
 // ===============================
 
-import { board, findKing, inCheck } from "./core.js";
+import { board, enPassantTarget, castlingRights, findKing, inCheck } from "./core.js";
 
 export let canvas = null;
 export let ctx = null;
@@ -25,25 +25,11 @@ export function fixCanvasResolution() {
     ctx.scale(ratio, ratio);
 }
 
+export let size = 0;
 export function updateSquareSize() {
     const rect = canvas.getBoundingClientRect();
     size = rect.width / 8;
 }
-
-export let size = 0;
-
-// Stato iniziale della scacchiera
-let board = [
-    ["r","n","b","q","k","b","n","r"],
-    ["p","p","p","p","p","p","p","p"],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["","","","","","","",""],
-    ["P","P","P","P","P","P","P","P"],
-    ["R","N","B","Q","K","B","N","R"]
-];
-
 
 // Cache immagini
 const pieces = {
