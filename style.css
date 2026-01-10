@@ -1,3 +1,12 @@
+/* Disabilita selezione su TUTTO */
+* {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
 html, body {
     margin: 0;
     padding: 0;
@@ -74,6 +83,7 @@ button, #newGameBtn {
     font-weight: bold;
     font-size: 20px;
 }
+
 
 
 
