@@ -16,6 +16,10 @@ export function startMode() {
     preloadImages(() => {
         fixCanvasResolution();
         updateSquareSize();
+         
+        alert("Canvas size: " + size);
+        console.log("Canvas size:", size);
+
         console.log("size:", size)
         drawBoard(null, [], false, null, 0, 0);
         enableInput();
