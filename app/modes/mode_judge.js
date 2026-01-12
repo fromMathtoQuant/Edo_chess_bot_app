@@ -1,13 +1,22 @@
-import { resetBoard } from "../core.js";
-import { fixCanvasResolution, updateSquareSize, drawBoard } from "../ui.js";
+
+import { resetBoard, board } from "../core.js";
+import { fixCanvasResolution, updateSquareSize, drawBoard, initUI, preloadImages } from "../ui.js";
 import { enableInput } from "../input.js";
 
 export function startMode() {
-    resetBoard();
-    fixCanvasResolution();
-    updateSquareSize();
-    enableInput();
-    drawBoard(null, [], false, null, 0, 0);
+  console.log("Modalità JUDGE avviata");
 
-    alert("Modalità Giudice attiva");
+  resetBoard();
+  // Inserisci Sentinella
+  board[3][3] = "S"; // esempio posizione
+
+  initUI();
+  fixCanvasResolution();
+  updateSquareSize();
+
+  preloadImages(() => {
+    drawBoard(null, [], false, null, 0, 0);
+    enableInput();
+    document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
+  });
 }
