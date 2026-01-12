@@ -2,7 +2,7 @@
 // INPUT — Mouse + Touch
 // ===============================
 
-import { board, turn, isWhite, inBounds, getLegalMoves, applyMove, hasAnyLegalMove, inCheck } from "./core.js";
+import { board, turn, isWhite, inBounds, getLegalMoves, applyMove, hasAnyLegalMove, inCheck, enPassantTarget, castlingRights } from "./core.js";
 import { canvas, size, drawBoard } from "./ui.js";
 
 export let selected = null;
