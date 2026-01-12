@@ -11,10 +11,10 @@ export function startMode() {
   board[3][3] = "S"; // esempio posizione
 
   initUI();
-  fixCanvasResolution();
-  updateSquareSize();
 
   preloadImages(() => {
+    fixCanvasResolution();
+    updateSquareSize();
     drawBoard(null, [], false, null, 0, 0);
     enableInput();
     document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
