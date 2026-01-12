@@ -1,144 +1,126 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-    <!-- iPhone: evita zoom, mantiene proporzioni corrette -->
-    
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-               maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <!-- iPhone: evita zoom + notch -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,
+                 maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
-    <!-- Attiva modalità app fullscreen -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Modalità app fullscreen (iOS) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Scacco Matterello">
 
-    <!-- Nasconde completamente la status bar -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <!-- Colore tema -->
+  <meta name="theme-color" content="#000000">
 
-    <!-- Nome dell'app -->
-    <meta name="apple-mobile-web-app-title" content="Scacco Matterello">
+  <!-- Icona -->
+  <link rel="apple-touch-icon" sizes="180x180" href="cubic2.png">
 
-    <!-- Colore di sfondo -->
-    <meta name="theme-color" content="#000000">
+  <title>Scacco Matterello</title>
 
-    <!-- Icona -->
-    <link rel="apple-touch-icon" sizes="180x180" href="cubic2.png">
+  <link rel="stylesheet" href="style.css">
 
-    <title>Scacco Matterello</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        /* MENU INIZIALE */
-        #startMenu {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: cyan; /* <-- MODIFICATO */
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            z-index: 9999;
-            font-family: sans-serif;
-        }
-
-        #startMenu h1 {
-            margin-bottom: 30px;
-            font-size: 32px;
-        }
-
-        .menuBtn {
-            width: 260px;
-            padding: 15px;
-            font-size: 18px;
-            border-radius: 12px;
-            border: none;
-            background: #333;
-            color: white;
-        }
-
-        .menuBtn:active {
-            background: #555;
-        }
-
-        /* Nascondi scacchiera finché non si sceglie una modalità */
-        #gameUI {
-            display: none;
-        }
-    </style>
+  <style>
+    /* MENU INIZIALE */
+    #startMenu {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: cyan;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      z-index: 9999;
+      font-family: sans-serif;
+    }
+    #startMenu h1 {
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+    .menuBtn {
+      width: 260px;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      background: #333;
+      color: white;
+    }
+    .menuBtn:active {
+      background: #555;
+    }
+    /* Nascondi scacchiera finché non si sceglie una modalità */
+    #gameUI {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- MENU INIZIALE -->
-    <div id="startMenu">
-        <h1>Scacco Matterello</h1>
+  <!-- MENU INIZIALE -->
+  <div id="startMenu">
+    <h1>Scacco Matterello</h1>
+    <button class="menuBtn" data-mode="classic">2 Giocatori Classic</button>
+    <button class="menuBtn" data-mode="bot">Contro Bot</button>
+    <button class="menuBtn" data-mode="judge">2 Giocatori con Giudice</button>
+    <button class="menuBtn" data-mode="botjudge">Contro Bot con Giudice</button>
+  </div>
 
-        <button class="menuBtn" data-mode="classic">2 Giocatori Classic</button>
-        <button class="menuBtn" data-mode="bot">Contro Bot</button>
-        <button class="menuBtn" data-mode="judge">2 Giocatori con Giudice</button>
-        <button class="menuBtn" data-mode="botjudge">Contro Bot con Giudice</button>
+  <!-- INTERFACCIA DI GIOCO -->
+  <div id="gameUI">
+    <h1>Scacco Matterello</h1>
+
+    <div id="turnIndicator" style="font-size:20px;margin-top:5px;font-weight:bold;">
+      Tocca al Bianco
     </div>
 
-    <!-- INTERFACCIA DI GIOCO -->
-    <div id="gameUI">
-
-        <h1>Scacco Matterello</h1>
-
-        <div id="turnIndicator" style="
-            font-size: 20px;
-            margin-top: 5px;
-            font-weight: bold;
-        ">
-            Tocca al Bianco
-        </div>
-
-        <div id="boardWrapper" style="
-            padding-bottom: calc(env(safe-area-inset-bottom) + 40px);
-        ">
-            <canvas id="board"></canvas>
-        </div>
-
-        <button id="newGameBtn" style="
-            margin-top: 30px;
-            margin-bottom: 40px;
-            padding: 10px 20px;
-            font-size: 18px;
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-            -webkit-tap-highlight-color: transparent;
-        ">
-            Nuova Partita
-        </button>
-
+    <div id="boardWrapper" style="padding-bottom: calc(env(safe-area-inset-bottom) + 40px);">
+      <canvas id="board" aria-label="Scacchiera" role="img"></canvas>
     </div>
 
-    <script src="app.js"></script>
+    <button id="newGameBtn"
+            style="margin-top:30px;margin-bottom:40px;padding:10px 20px;font-size:18px;
+                   -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
+                   -webkit-tap-highlight-color:transparent;">
+      Nuova Partita
+    </button>
+  </div>
 
-    <script>
-        // Gestione menu iniziale
-        let gameMode = null;
+  <!-- ENTRYPOINT come modulo: ATTENZIONE al percorso -->
+  <script type="module" src="app/app.js"></script>
 
-        document.querySelectorAll(".menuBtn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                gameMode = btn.dataset.mode;
+  <!-- Script inline del menu: viene dopo, quindi window.startGameMode è già disponibile -->
+  <script>
+    // Gestione menu iniziale
+    document.querySelectorAll(".menuBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mode = btn.dataset.mode;
 
-                // Nascondi menu
-                document.getElementById("startMenu").style.display = "none";
+        // Nascondi menu, mostra UI di gioco
+        document.getElementById("startMenu").style.display = "none";
+        document.getElementById("gameUI").style.display = "block";
 
-                // Mostra UI di gioco
-                document.getElementById("gameUI").style.display = "block";
+        // Avvia modalità
+        if (typeof window.startGameMode === "function") {
+          window.startGameMode(mode);
+        } else {
+          // Fallback di debug se per qualche motivo non è disponibile
+          alert("Errore: startGameMode non è disponibile. Controlla app/app.js e main.js");
+        }
+      });
+    });
 
-                // Avvia modalità
-                if (typeof startGameMode === "function") {
-                    startGameMode(gameMode);
-                }
-            });
-        });
-    </script>
-
+    // Tasto "Nuova Partita" → torna al menu (la modalità chiamerà resetBoard() quando riparte)
+    document.getElementById("newGameBtn").addEventListener("click", () => {
+      document.getElementById("gameUI").style.display = "none";
+      document.getElementById("startMenu").style.display = "flex";
+    });
+  </script>
 </body>
 </html>
-
