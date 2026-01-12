@@ -89,7 +89,7 @@ export function preloadImages(callback) {
         };
 
         img.onerror = () => {
-            console.warn("Errore nel caricare l'immagine:", pieces[key]);
+            alert("Errore nel caricare: " + pieces[key]);
             loaded++;
             if (loaded === total) callback();
         };
