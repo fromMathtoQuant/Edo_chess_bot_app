@@ -15,6 +15,7 @@ export function startMode() {
         
         drawBoard(null, [], false, null, 0, 0);
         enableInput();
-        document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
+        // Aggiorna indicatore al carico
+        updateTurnIndicator();
     });
 }
