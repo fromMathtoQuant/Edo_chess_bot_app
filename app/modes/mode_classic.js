@@ -5,10 +5,6 @@ import { enableInput } from "../input.js";
 export function startMode() {    
     console.log("Modalità CLASSIC avviata");
         
-    // Assicurati che #gameUI sia visibile PRIMA di misurare il canvas
-    document.getElementById("startMenu").style.display = "none";
-    document.getElementById("gameUI").style.display = "block";
-
     resetBoard();
     initUI();
 
@@ -16,11 +12,7 @@ export function startMode() {
     preloadImages(() => {
         fixCanvasResolution();
         updateSquareSize();
-         
-        alert("Canvas size: " + size);
-        console.log("Canvas size:", size);
-
-        console.log("size:", size)
+        
         drawBoard(null, [], false, null, 0, 0);
         enableInput();
         document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
