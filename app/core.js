@@ -2,8 +2,6 @@
 // CORE — Motore scacchistico puro
 // ===============================
 
-import { updateTurnIndicator } from "./ui.js";
-
 // Stato scacchiera
 export let board = [
     ["r","n","b","q","k","b","n","r"],
