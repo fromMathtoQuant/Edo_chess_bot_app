@@ -46,9 +46,8 @@ const pieces = {
   "K": "app/pieces/wK.png",
   "P": "app/pieces/wP.png",
   "S": "app/pieces/sentinel.png",
-  "s": "app/pieces/sentinel.png"  // 🔧 vedi punto C
+  "s": "app/pieces/sentinel.png" 
 };
-``
 
 
 const imageCache = {};
