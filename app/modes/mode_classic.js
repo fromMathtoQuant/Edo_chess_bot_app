@@ -16,6 +16,7 @@ export function startMode() {
     preloadImages(() => {
         fixCanvasResolution();
         updateSquareSize();
+        console.log("size:", size)
         drawBoard(null, [], false, null, 0, 0);
         enableInput();
         document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
