@@ -3,7 +3,7 @@
 // ===============================
 
 import { board, turn, isWhite, inBounds, getLegalMoves, applyMove, hasAnyLegalMove, inCheck, enPassantTarget, castlingRights } from "./core.js";
-import { canvas, size, drawBoard } from "./ui.js";
+import { canvas, size, drawBoard, updateTurnIndicator } from "./ui.js";
 
 export let selected = null;
 export let legalMoves = [];
@@ -135,6 +135,7 @@ export function tryMove(x1, y1, x2, y2) {
         // Aggiorna UI del turno
         document.getElementById("turnIndicator").textContent =
             turn === "w" ? "Tocca al Bianco" : "Tocca al Nero";
+            updateTurnIndicator();
 
         const enemy = turn;
 
