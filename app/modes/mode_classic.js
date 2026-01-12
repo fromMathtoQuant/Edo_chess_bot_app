@@ -1,5 +1,5 @@
 import { resetBoard } from "../core.js";
-import { fixCanvasResolution, updateSquareSize, drawBoard, initUI, preloadImages } from "../ui.js";
+import { fixCanvasResolution, updateSquareSize, drawBoard, initUI, preloadImages, updateTurnIndicator } from "../ui.js";
 import { enableInput } from "../input.js";
 
 export function startMode() {    
