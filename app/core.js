@@ -308,6 +308,9 @@ export function isLegalMove(piece, x1, y1, x2, y2) {
     if (!piece) return false;
 
     const color = isWhite(piece) ? "w" : "b";
+    
+    // Se non è Sentinella, rispetta il turno
+    if (piece.toLowerCase() !== "s" && color !== turn) return false;
 
     if (!basicLegalMove(board, piece, x1, y1, x2, y2, color, enPassantTarget, castlingRights, false)) {
         return false;
