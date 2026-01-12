@@ -2,7 +2,7 @@
 // UI — Disegno canvas
 // ===============================
 
-import { board, enPassantTarget, castlingRights, findKing, inCheck } from "./core.js";
+import { board, enPassantTarget, castlingRights, findKing, inCheck, turn } from "./core.js";
 
 export let canvas = null;
 export let ctx = null;
