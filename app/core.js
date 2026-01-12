@@ -352,7 +352,6 @@ export function resetBoard() {
     turn = "w";
     enPassantTarget = null;
     castlingRights = { wK:true, wQ:true, bK:true, bQ:true };
-    selected = null;
     legalMoves = [];
 
 }
