@@ -285,7 +285,7 @@ export function getLegalMoves(x1, y1) {
     if (!piece) return [];
 
     const color = isWhite(piece) ? "w" : "b";
-    if (color !== turn) return [];
+    if (piece.toLowerCase() !== "s" && color !== turn) return [];
 
     const moves = [];
 
@@ -304,7 +304,6 @@ export function isLegalMove(piece, x1, y1, x2, y2) {
     if (!piece) return false;
 
     const color = isWhite(piece) ? "w" : "b";
-    if (color !== turn) return false;
 
     if (!basicLegalMove(board, piece, x1, y1, x2, y2, color, enPassantTarget, castlingRights, false)) {
         return false;
