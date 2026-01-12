@@ -138,13 +138,13 @@ export function tryMove(x1, y1, x2, y2) {
 
         const enemy = turn;
 
-        if (inCheck(board, enemy) && !hasAnyLegalMove(enemy)) {
-            setTimeout(() => {
-                alert("SCACCO MATTERELLO!\nFine partita.");
-                document.getElementById("gameUI").style.display = "none";
-                document.getElementById("startMenu").style.display = "flex";
-            }, 200);
+                
+        if (inCheck(board, enemy, enPassantTarget, castlingRights) && !hasAnyLegalMove(enemy)) {
+          alert("SCACCO MATTERELLO!\nFine partita.");
+        } else if (!inCheck(board, enemy, enPassantTarget, castlingRights) && !hasAnyLegalMove(enemy)) {
+          alert("Patta per stallo!");
         }
+
 
         // 🔥 IMPORTANTE: notifica bot o giudice
         if (window.onPlayerMove) window.onPlayerMove();
