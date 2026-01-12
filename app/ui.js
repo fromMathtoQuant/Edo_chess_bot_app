@@ -7,6 +7,17 @@ import { board, enPassantTarget, castlingRights, findKing, inCheck } from "./cor
 export let canvas = null;
 export let ctx = null;
 
+// === TURN INDICATOR — helper centralizzato ===
+export function updateTurnIndicator() {
+    const el = document.getElementById("turnIndicator");
+    if (!el) return;
+    const isWhite = (turn === "w");
+    el.classList.toggle("turn--white", isWhite);
+    el.classList.toggle("turn--black", !isWhite);
+    el.textContent = isWhite ? "Tocca al Bianco" : "Tocca al Nero";
+    el.setAttribute("aria-label", el.textContent);
+}
+
 
 export function initUI() {
     canvas = document.getElementById("board");
