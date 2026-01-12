@@ -11,6 +11,7 @@ export let ctx = null;
 export function initUI() {
     canvas = document.getElementById("board");
     ctx = canvas.getContext("2d");
+    ctx.imageSmoothingEnabled = true;
 }
 
 export function fixCanvasResolution() {
@@ -55,7 +56,6 @@ for (let key in pieces) {
     const img = new Image();
     img.src = pieces[key];
     img.decoding = "async";
-    img.loading = "eager";
     imageCache[key] = img;
 }
 
