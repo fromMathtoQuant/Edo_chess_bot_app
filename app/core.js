@@ -277,6 +277,8 @@ export function applyMove(x1, y1, x2, y2) {
     castlingRights = result.castling;
 
     turn = turn === "w" ? "b" : "w";
+    // aggiorna indicatore grafico (testo + colore)
+    updateTurnIndicator();
 }
 
 // Mosse legali
