@@ -4,6 +4,10 @@ import { enableInput } from "../input.js";
 
 export function startMode() {    
     console.log("Modalità CLASSIC avviata");
+        
+    // Assicurati che #gameUI sia visibile PRIMA di misurare il canvas
+    document.getElementById("startMenu").style.display = "none";
+    document.getElementById("gameUI").style.display = "block";
 
     resetBoard();
     initUI();
