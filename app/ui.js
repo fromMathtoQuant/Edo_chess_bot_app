@@ -33,20 +33,23 @@ export function updateSquareSize() {
 
 // Cache immagini
 const pieces = {
-    "r": "pieces/bR.png",
-    "n": "pieces/bN.png",
-    "b": "pieces/bB.png",
-    "q": "pieces/bQ.png",
-    "k": "pieces/bK.png",
-    "p": "pieces/bP.png",
-    "R": "pieces/wR.png",
-    "N": "pieces/wN.png",
-    "B": "pieces/wB.png",
-    "Q": "pieces/wQ.png",
-    "K": "pieces/wK.png",
-    "P": "pieces/wP.png",
-    "S": "pieces/sentinel.png"
+  "r": "app/pieces/bR.png",
+  "n": "app/pieces/bN.png",
+  "b": "app/pieces/bB.png",
+  "q": "app/pieces/bQ.png",
+  "k": "app/pieces/bK.png",
+  "p": "app/pieces/bP.png",
+  "R": "app/pieces/wR.png",
+  "N": "app/pieces/wN.png",
+  "B": "app/pieces/wB.png",
+  "Q": "app/pieces/wQ.png",
+  "K": "app/pieces/wK.png",
+  "P": "app/pieces/wP.png",
+  "S": "app/pieces/sentinel.png",
+  "s": "app/pieces/sentinel.png"  // 🔧 vedi punto C
 };
+``
+
 
 const imageCache = {};
 for (let key in pieces) {
