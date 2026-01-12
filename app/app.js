@@ -1,12 +1,12 @@
 
-import { startGameMode as startGameModeImpl } from "./main.js";
+import { startGameMode } from "./main.js";
 import { initUI, fixCanvasResolution, updateSquareSize, preloadImages, drawBoard } from "./ui.js";
 import { enableInput } from "./input.js";
 
-window.startGameMode = (mode) => startGameModeImpl(mode);
+window.startGameMode = (mode) => startGameMode(mode);
 
 window.addEventListener("DOMContentLoaded", () => {
-
+  // Se vuoi inizializzare qualcosa qui, fallo dopo il DOM ready
   };
 
   resize();
