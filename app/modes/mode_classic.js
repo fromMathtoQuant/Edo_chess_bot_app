@@ -7,11 +7,11 @@ export function startMode() {
 
     resetBoard();
     initUI();
-    fixCanvasResolution();
-    updateSquareSize();
 
     // Carica immagini PRIMA di disegnare
     preloadImages(() => {
+        fixCanvasResolution();
+        updateSquareSize();
         drawBoard(null, [], false, null, 0, 0);
         enableInput();
         document.getElementById("turnIndicator").textContent = "Tocca al Bianco";
