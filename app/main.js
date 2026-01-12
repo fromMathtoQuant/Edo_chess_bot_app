@@ -8,12 +8,25 @@ import { startMode as botjudge } from "./modes/mode_botjudge.js";
 export function startGameMode(mode) {
   switch (mode) {
     case "classic": classic(); break;
-    case "judge":   alert("Modalità Judge non ancora implementata."); break;
-    // case "judge": judge(); break;
-    case "bot":     alert("Modalità Bot non ancora implementata."); break;
+      
+    case "judge": judge(); break;
+      
+    case "bot":
+    alert("Modalità Bot non ancora implementata.");
+    // Torna al menu principale
+    document.getElementById("gameUI").style.display = "none";
+    document.getElementById("startMenu").style.display = "flex";
+    break;
     // case "bot": bot(); break;
-    case "botjudge":alert("Modalità Bot+Judge non ancora implementata."); break;
+      
+    case "botjudge":
+    alert("Modalità Bot+Judge non ancora implementata."); 
+    // Torna al menu principale
+    document.getElementById("gameUI").style.display = "none";
+    document.getElementById("startMenu").style.display = "flex";
+    break;
     // case "botjudge": botjudge(); break;
+      
     default:
       alert("Modalità non trovata: " + mode);
       console.error("Modalità sconosciuta:", mode);
