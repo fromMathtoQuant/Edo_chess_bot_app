@@ -1,7 +1,7 @@
 {
   "name": "Scacchi 2 Giocatori",
   "short_name": "Scacchi",
-  "start_url": "./"
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
@@ -14,3 +14,4 @@
   ]
 
 }
+
