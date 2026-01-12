@@ -6,12 +6,7 @@ import { enableInput } from "./input.js";
 window.startGameMode = (mode) => startGameModeImpl(mode);
 
 window.addEventListener("DOMContentLoaded", () => {
-  initUI();
 
-  const resize = () => {
-    fixCanvasResolution();
-    updateSquareSize();
-    drawBoard(null, [], false, null, 0, 0);
   };
 
   resize();
