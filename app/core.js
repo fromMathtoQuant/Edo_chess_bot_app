@@ -42,8 +42,17 @@ export function basicLegalMove(b, piece, x1, y1, x2, y2, turnColor, enPassant, c
     const white = isWhite(piece);
 
     // Sentinella non può essere catturata
-    if (target && target.toLowerCase() === "s") return false;
+    if (target && target === "s") return false;
 
+    // SENTINELLA può sempre muoversi indipendentemente dal colore
+    if piece === "s" { 
+        if (absDx <= 1 && absDy <= 1) {
+            if (target) return false;
+            return true;
+        }
+        return false;
+    }
+    
     // Non puoi catturare pezzi tuoi
     if (target && isWhite(target) === white) return false;
 
@@ -138,7 +147,7 @@ export function pathClear(b, x1, y1, x2, y2) {
 
     while (x !== x2 || y !== y2) {
         if (b[y][x]) {
-            if (b[y][x].toLowerCase() === "s") return false;
+            if (b[y][x] === "s") return false;
             return false;
         }
         x += dx;
@@ -154,7 +163,7 @@ export function squareAttacked(b, x, y, byWhite, enPassant, castling) {
             const p = b[yy][xx];
             if (!p) continue;
 
-            if (p.toLowerCase() === "s") continue;
+            if (p === "s") continue;
 
             if (isWhite(p) !== byWhite) continue;
 
@@ -183,7 +192,7 @@ export function makeMove(b, x1, y1, x2, y2, turnColor, enPassant, castling) {
     let newEnPassant = null;
     let newCastling = { ...castling };
 
-    if (b[y2][x2] && b[y2][x2].toLowerCase() === "s") {
+    if (b[y2][x2] && b[y2][x2] === "s") {
         return { board: b, enPassant, castling };
     }
     
@@ -285,7 +294,8 @@ export function getLegalMoves(x1, y1) {
     if (!piece) return [];
 
     const color = isWhite(piece) ? "w" : "b";
-    if (piece.toLowerCase() !== "s" && color !== turn) return [];
+    
+    if (piece !== "s" && color !== turn) return [];
 
     const moves = [];
 
@@ -306,7 +316,7 @@ export function isLegalMove(piece, x1, y1, x2, y2) {
     const color = isWhite(piece) ? "w" : "b";
     
     // Se non è Sentinella, rispetta il turno
-    if (piece.toLowerCase() !== "s" && color !== turn) return false;
+    if (piece !== "s" && color !== turn) return false;
 
     if (!basicLegalMove(board, piece, x1, y1, x2, y2, color, enPassantTarget, castlingRights, false)) {
         return false;
