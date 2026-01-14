@@ -11,6 +11,11 @@ import { drawBoard, updateTurnIndicator, preloadImages, initUI, fixCanvasResolut
 import { chooseBestMoveFromGlobals } from "./mode_bot_engine.js"; // separiamo engine per pulizia
 
 export function startMode() {
+
+    // Attiva stile dedicato alla modalità Bot
+    const gameUI = document.getElementById("gameUI");
+    gameUI.classList.add("bot-mode");
+    
     // Mostra UI di gioco
     document.getElementById("startMenu").style.display = "none";
     document.getElementById("gameUI").style.display = "flex";
