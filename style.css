@@ -27,6 +27,15 @@ body.start-screen {
 
 #startMenu {
     background: cyan !important;
+    position: fixed;
+    inset: 0; /* top, right, bottom, left = 0 */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 9999;
 }
 
 h1 {
@@ -117,9 +126,27 @@ button, #newGameBtn {
 /* Sposta il bottone "Nuova partita" in basso */
 #gameUI.bot-mode #newGameBtn {
     margin-top: auto; /* spinge il bottone in fondo */
-    margin-bottom: 20px; /* piccolo margine dal bordo */
+    margin-bottom: calc(env(safe-area-inset-bottom) + 20px); /* piccolo margine dal bordo */
 }
 
+/* ===========================
+   Modalità APP (PWA/WebView)
+   =========================== */
+body.app-mode,
+body.app-mode #gameUI,
+body.app-mode #startMenu {
+    min-height: 100dvh;
+    height: 100dvh;
+}
+
+body.app-mode #startMenu,
+body.app-mode #gameUI {
+    background: #0b6623; /* copre tutto */
+}
+
+body.app-mode #boardWrapper {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 40px);
+}
 
 
 
