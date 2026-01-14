@@ -41,16 +41,12 @@ export function startGameMode(mode) {
     case "bot":
       // Attiva stile bot-mode per CSS dedicato
       if (gameUI) gameUI.classList.add("bot-mode");
-      bot();
-      break;
+      bot(); break;
       
     case "botjudge":
-    alert("Modalità Bot+Judge non ancora implementata."); 
-    // Torna al menu principale
-    document.getElementById("gameUI").style.display = "none";
-    document.getElementById("startMenu").style.display = "flex";
-    break;
-    // case "botjudge": botjudge(); break;
+      // Attiva stile bot-mode per CSS dedicato
+      if (gameUI) gameUI.classList.add("bot-mode");
+      botjudge(); break;
       
     default:
       alert("Modalità non trovata: " + mode);
