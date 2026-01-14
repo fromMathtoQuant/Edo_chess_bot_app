@@ -92,36 +92,37 @@
     </button>
   </div>
 
-  <!-- ENTRYPOINT come modulo: ATTENZIONE al percorso -->
-  <script type="module" src="app/app.js"></script>
-
-  <!-- Script inline del menu: viene dopo, quindi window.startGameMode è già disponibile -->
-  <script>
+  
+  <script type="module">
+    import { startGameMode } from './app/main.js'; // <-- stesso percorso del tuo progetto
+  
     // Gestione menu iniziale
     document.querySelectorAll(".menuBtn").forEach(btn => {
       btn.addEventListener("click", () => {
         const mode = btn.dataset.mode;
-
+  
         // Nascondi menu, mostra UI di gioco
         document.getElementById("startMenu").style.display = "none";
         document.getElementById("gameUI").style.display = "block";
-
+  
         // Avvia modalità
-        if (typeof window.startGameMode === "function") {
-          window.startGameMode(mode);
-        } else {
-          // Fallback di debug se per qualche motivo non è disponibile
-          alert("Errore: startGameMode non è disponibile. Controlla app/app.js e main.js");
+        try {
+          startGameMode(mode);
+        } catch (e) {
+          alert("Errore in startGameMode: " + (e?.message || e));
+          console.error(e);
         }
       });
     });
-
-    // Tasto "Nuova Partita" → torna al menu (la modalità chiamerà resetBoard() quando riparte)
+  
+    // Tasto "Nuova Partita" → torna al menu
     document.getElementById("newGameBtn").addEventListener("click", () => {
       document.getElementById("gameUI").style.display = "none";
       document.getElementById("startMenu").style.display = "flex";
     });
   </script>
+
 </body>
 </html>
+
 
