@@ -22,6 +22,18 @@ export function startMode() {
 
     // Reset scacchiera
     resetBoard();
+    // Inserisci Sentinella
+    // Scegli una casella casuale tra le quattro centrali e inserisci la Sentinella
+    const centers = [
+       { x: 3, y: 3 }, // d4 (in notazione classica)
+       { x: 4, y: 3 }, // e4
+       { x: 3, y: 4 }, // d5
+       { x: 4, y: 4 }  // e5
+    ];
+    const pick = centers[Math.floor(Math.random() * centers.length)];
+
+    // Inserisci la Sentinella.
+    board[pick.y][pick.x] = "s";
 
     // Inizializza UI
     initUI();
