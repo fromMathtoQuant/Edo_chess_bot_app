@@ -290,7 +290,12 @@ export function getLegalMoves(x1, y1) {
 
     const color = isWhite(piece) ? "w" : "b";
     
-    if (piece !== "s" && color !== turn) return [];
+    // Se è Sentinella, ignoriamo il turno
+    if (piece === "s") {
+        // Non fare nessun controllo sul turno
+    } else {
+        if (color !== turn) return [];
+    }
 
     const moves = [];
 
