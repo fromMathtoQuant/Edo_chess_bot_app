@@ -61,7 +61,8 @@
     }
   </style>
 </head>
-<body>
+  
+<body class="start-screen">
 
   <!-- MENU INIZIALE -->
   <div id="startMenu">
@@ -105,7 +106,10 @@
         // Nascondi menu, mostra UI di gioco
         document.getElementById("startMenu").style.display = "none";
         document.getElementById("gameUI").style.display = "block";
-  
+
+        // RIMUOVI lo stato "start-screen" (sfondo ciano)
+        document.body.classList.remove("start-screen");
+
         // Avvia modalità
         try {
           startGameMode(mode);
@@ -120,11 +124,14 @@
     document.getElementById("newGameBtn").addEventListener("click", () => {
       document.getElementById("gameUI").style.display = "none";
       document.getElementById("startMenu").style.display = "flex";
+      // TORNA allo sfondo ciano in menu
+      document.body.classList.add("start-screen");
     });
   </script>
 
 </body>
 </html>
+
 
 
 
