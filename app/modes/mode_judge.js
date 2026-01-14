@@ -6,6 +6,9 @@ import { enableInput } from "../input.js";
 export function startMode() {
   console.log("Modalità JUDGE avviata");
 
+  // Disattiva il bot per questa modalità
+  window.onPlayerMove = null;
+  
   resetBoard();
   // Inserisci Sentinella
   // Scegli una casella casuale tra le quattro centrali e inserisci la Sentinella
