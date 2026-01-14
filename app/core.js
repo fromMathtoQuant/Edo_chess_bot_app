@@ -330,7 +330,10 @@ export function isLegalMove(piece, x1, y1, x2, y2) {
     const { board: newBoard, enPassant: newEP, castling: newCastling } =
         makeMove(board, x1, y1, x2, y2, color, enPassantTarget, castlingRights);
 
-    if (inCheck(newBoard, color, newEP, newCastling)) {
+    // Determina il colore del giocatore che sta muovendo
+    const movingColor = (piece === "s") ? turn : color;
+    
+    if (inCheck(newBoard, movingColor, newEP, newCastling)) {
         return false;
     }
 
