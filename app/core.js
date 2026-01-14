@@ -65,13 +65,6 @@ export function basicLegalMove(b, piece, x1, y1, x2, y2, turnColor, enPassant, c
 
     switch (piece.toLowerCase()) {
 
-        case "s": // SENTINELLA
-            if (absDx <= 1 && absDy <= 1) {
-                if (target) return false;
-                return true;
-            }
-            return false;
-
         case "p": {
             const dir = white ? -1 : 1;
             const startRank = white ? 6 : 1;
