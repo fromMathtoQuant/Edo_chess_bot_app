@@ -145,8 +145,9 @@ body.app-mode #gameUI {
 }
 
 body.app-mode #boardWrapper {
-    padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 5px);
 }
+
 
 
 
