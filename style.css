@@ -48,7 +48,7 @@ h1 {
 
 /* Wrapper che solleva la scacchiera dal bordo inferiore */
 #boardWrapper {
-    padding-bottom: calc(env(safe-area-inset-bottom) + 40px);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 10px);
     /* 40px extra per sicurezza */
 }
 
@@ -147,6 +147,7 @@ body.app-mode #gameUI {
 body.app-mode #boardWrapper {
     padding-bottom: calc(env(safe-area-inset-bottom) + 40px);
 }
+
 
 
 
