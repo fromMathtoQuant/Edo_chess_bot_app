@@ -94,8 +94,11 @@
 
   
   <script type="module">
+    alert("Modulo inline caricato"); // DEBUG
+    
     import { startGameMode } from './app/main.js'; // <-- stesso percorso del tuo progetto
-  
+
+    alert("main.js importato"); // DEBUG
     // Gestione menu iniziale
     document.querySelectorAll(".menuBtn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -124,5 +127,6 @@
 
 </body>
 </html>
+
 
 
