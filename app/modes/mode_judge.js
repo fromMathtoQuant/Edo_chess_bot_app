@@ -21,7 +21,7 @@ export function startMode() {
   board[pick.y][pick.x] = "s";
   // Converte (x,y) in notazione scacchistica (a1..h8)
   const files = "abcdefgh";
-  const notation = `${files[pick.x]}${pick.y + 1}`;
+  const notation = `${files[pick.x]}${8 - pick.y}`;
   
   alert(`Il giudice inizia in: ${notation}`);
 
