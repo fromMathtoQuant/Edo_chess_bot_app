@@ -10,6 +10,10 @@ export function startGameMode(mode) {
   // Pulisci eventuali hook di modalità precedente
   window.onPlayerMove = null;
 
+  //  rimuovi stile bot se presente
+  const gameUI = document.getElementById("gameUI");
+  if (gameUI) gameUI.classList.remove("bot-mode");
+
   switch (mode) {
     case "classic": classic(); break;
       
