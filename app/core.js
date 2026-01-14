@@ -44,8 +44,13 @@ export function basicLegalMove(b, piece, x1, y1, x2, y2, turnColor, enPassant, c
     // Sentinella non può essere catturata
     if (target && target === "s") return false;
 
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+
     // SENTINELLA può sempre muoversi indipendentemente dal colore
-    if piece === "s" { 
+    if (piece === "s") { 
         if (absDx <= 1 && absDy <= 1) {
             if (target) return false;
             return true;
@@ -56,10 +61,7 @@ export function basicLegalMove(b, piece, x1, y1, x2, y2, turnColor, enPassant, c
     // Non puoi catturare pezzi tuoi
     if (target && isWhite(target) === white) return false;
 
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const absDx = Math.abs(dx);
-    const absDy = Math.abs(dy);
+    
 
     switch (piece.toLowerCase()) {
 
