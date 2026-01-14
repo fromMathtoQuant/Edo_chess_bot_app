@@ -17,9 +17,13 @@ export function startMode() {
   ];
   const pick = centers[Math.floor(Math.random() * centers.length)];
 
-  // Inserisci la Sentinella. Usiamo "S" (ma funziona anche "s": UI mappa entrambe).
-  board[pick.y][pick.x] = "S";
-  alert(`Sentinella posizionata in: x=${pick.x}, y=${pick.y}`);
+  // Inserisci la Sentinella.
+  board[pick.y][pick.x] = "s";
+  // Converte (x,y) in notazione scacchistica (a1..h8)
+  const files = "abcdefgh";
+  const notation = `${files[pick.x]}${pick.y + 1}`;
+  
+  alert(`Il giudice inizia in: ${notation}`);
 
   initUI();
 
