@@ -43,8 +43,6 @@ h1 {
     /* 40px extra per sicurezza */
 }
 
-
-
 canvas {
     margin-top: 10px;
     border: 3px solid #333;
@@ -109,61 +107,20 @@ button, #newGameBtn {
   display: none !important;
 }
 
-/* Layout colonna + "footer" in basso */
+/* Layout colonna per spingere il bottone in basso */
 #gameUI.bot-mode {
-  display: flex;             /* assicurati che #gameUI sia un flex container */
-  flex-direction: column;    /* contenuti disposti in colonna (board sopra, controlli sotto) */
-  min-height: 100%;          /* o 100vh, dipende dalla struttura esistente */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Area contenuti principale (board, info, ecc.) 
-   Se hai un wrapper centrale per la scacchiera, usa il suo selettore al posto di .game-content */
-#gameUI.bot-mode .game-content {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;            /* occupa tutto lo spazio disponibile */
+/* Sposta il bottone "Nuova partita" in basso */
+#gameUI.bot-mode #newGameBtn {
+    margin-top: auto; /* spinge il bottone in fondo */
+    margin-bottom: 20px; /* piccolo margine dal bordo */
 }
 
-/* Footer controlli con bottone "Nuova partita"
-   (sostituisci .controls o .footer con il tuo selettore reale) */
-#gameUI.bot-mode .controls,
-#gameUI.bot-mode .footer {
-  margin-top: auto;          /* spinge i controlli in basso */
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  /* opzionale: effetto barra bassa */
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(0,0,0,0.08);
-}
 
-/* Se preferisci "sticky" (resta attaccato al fondo anche con scroll):
-#gameUI.bot-mode .controls,
-#gameUI.bot-mode .footer {
-  position: sticky;
-  bottom: 0;
-}
-*/
-
-/* Bottone "Nuova partita" più evidente (opzionale) */
-#gameUI.bot-mode .controls .btn-newgame,
-#gameUI.bot-mode .footer .btn-newgame {
-  margin-left: auto;  /* spinge il bottone a destra dentro la barra, ma sempre in basso */
-  /* stile a piacere: */
-  padding: 8px 14px;
-  border-radius: 6px;
-  background: #2b7cff;
-  color: #fff;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-}
-#gameUI.bot-mode .controls .btn-newgame:hover,
-#gameUI.bot-mode .footer .btn-newgame:hover {
-  background: #1d63d6;
-}
 
 
 
