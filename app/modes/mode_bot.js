@@ -30,9 +30,6 @@ export function startMode() {
     // Abilita input utente
     enableInput();
 
-    // Aggiorna indicatore turno
-    updateTurnIndicator();
-
     // Configura il bot
     const BOT_COLOR = "b"; // Bot gioca Nero
 
@@ -43,7 +40,6 @@ export function startMode() {
             const mv = chooseBestMoveFromGlobals({ board, turn, enPassantTarget, castlingRights }, { maxDepth: 4, timeMs: 1500 });
             if (mv) {
                 applyMove(mv.x1, mv.y1, mv.x2, mv.y2);
-                updateTurnIndicator();
                 drawBoard(null, [], false, null, 0, 0);
             }
         }
