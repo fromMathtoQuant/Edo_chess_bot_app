@@ -20,10 +20,10 @@ export function startMode() {
   // Inserisci la Sentinella.
   board[pick.y][pick.x] = "s";
   // Converte (x,y) in notazione scacchistica (a1..h8)
-  const files = "abcdefgh";
-  const notation = `${files[pick.x]}${8 - pick.y}`;
+  // const files = "abcdefgh";
+  // const notation = `${files[pick.x]}${8 - pick.y}`;
   
-  alert(`Il giudice inizia in: ${notation}`);
+  // alert(`Il giudice inizia in: ${notation}`);
 
   initUI();
 
