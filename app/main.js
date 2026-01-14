@@ -12,7 +12,7 @@ export function startGameMode(mode) {
     case "judge": judge(); break;
       
     case "bot":
-    alert("Modalità Bot non ancora implementata.");
+    alert("Modalità Bot è in via di sviluppo.");
     // Torna al menu principale
     document.getElementById("gameUI").style.display = "none";
     document.getElementById("startMenu").style.display = "flex";
