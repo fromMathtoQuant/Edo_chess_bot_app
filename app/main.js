@@ -6,6 +6,10 @@ import { startMode as botjudge } from "./modes/mode_botjudge.js";
 
 // Stub delle altre modalità se non ci sono ancora:
 export function startGameMode(mode) {
+  
+  // Pulisci eventuali hook di modalità precedente
+  window.onPlayerMove = null;
+
   switch (mode) {
     case "classic": classic(); break;
       
