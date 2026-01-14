@@ -110,7 +110,8 @@ function handleSelectOrMove(x, y) {
 
     const piece = board[y][x];
 
-    if (!piece || isWhite(piece) !== (turn === "w")) {
+    // Se non c'è pezzo, o se non è il turno corretto (eccetto Sentinella)
+    if (!piece || (piece !== "s" && isWhite(piece) !== (turn === "w"))) {
         if (selected) tryMove(selected.x, selected.y, x, y);
         return;
     }
