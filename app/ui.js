@@ -57,7 +57,6 @@ const pieces = {
   "Q": "app/pieces/wQ.png",
   "K": "app/pieces/wK.png",
   "P": "app/pieces/wP.png",
-  "S": "app/pieces/sentinel.png",
   "s": "app/pieces/sentinel.png" 
 };
 
